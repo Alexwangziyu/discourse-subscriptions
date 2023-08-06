@@ -89,6 +89,8 @@ module DiscourseSubscriptions
               metadata: metadata_user,
               trial_period_days: trial_days,
               promotion_code: promo_code_id,
+              cancel_at_period_end: true,
+
             )
 
           payment_intent = retrieve_payment_intent(transaction[:latest_invoice]) if transaction[
