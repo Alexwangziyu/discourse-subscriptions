@@ -94,41 +94,41 @@
     {{/if}}
   </p>
 
-  {{#if model.plan.isRecurring}}
-    <p>
-      <label for="interval">
-        {{i18n "discourse_subscriptions.admin.plans.plan.interval"}}
-      </label>
 
-      {{#if planFieldDisabled}}
-        <Input disabled={{true}} @value={{selectedInterval}} />
-      {{else}}
-        <ComboBox
-          @valueProperty="name"
-          @content={{availableIntervals}}
-          @value={{selectedInterval}}
-          @onChange={{action (mut selectedInterval)}}
-        />
-      {{/if}}
-    </p>
+  <p>
+    <label for="interval">
+      {{i18n "discourse_subscriptions.admin.plans.plan.interval"}}
+    </label>
 
-    <p>
-      <label for="trial">
-        {{i18n "discourse_subscriptions.admin.plans.plan.trial"}}
-        ({{i18n "discourse_subscriptions.optional"}})
-      </label>
-
-      <Input
-        @type="text"
-        name="trial"
-        @value={{model.plan.trial_period_days}}
+    {{#if planFieldDisabled}}
+      <Input disabled={{true}} @value={{selectedInterval}} />
+    {{else}}
+      <ComboBox
+        @valueProperty="name"
+        @content={{availableIntervals}}
+        @value={{selectedInterval}}
+        @onChange={{action (mut selectedInterval)}}
       />
+    {{/if}}
+  </p>
 
-      <div class="control-instructions">
-        {{i18n "discourse_subscriptions.admin.plans.plan.trial_help"}}
-      </div>
-    </p>
-  {{/if}}
+  <p>
+    <label for="trial">
+      {{i18n "discourse_subscriptions.admin.plans.plan.trial"}}
+      ({{i18n "discourse_subscriptions.optional"}})
+    </label>
+
+    <Input
+      @type="text"
+      name="trial"
+      @value={{model.plan.trial_period_days}}
+    />
+
+    <div class="control-instructions">
+      {{i18n "discourse_subscriptions.admin.plans.plan.trial_help"}}
+    </div>
+  </p>
+
 
   <p>
     <label for="active">
