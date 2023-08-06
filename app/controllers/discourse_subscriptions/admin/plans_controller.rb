@@ -32,6 +32,7 @@ module DiscourseSubscriptions
           }
 
           price_object[:recurring] = { interval: params[:interval] } if params[:type] == "recurring"
+          price_object[:recurring] = { interval: params[:interval] } if params[:type] != "recurring"
 
           plan = ::Stripe::Price.create(price_object)
 
