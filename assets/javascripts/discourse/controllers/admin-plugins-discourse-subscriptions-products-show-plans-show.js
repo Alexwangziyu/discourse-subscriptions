@@ -72,9 +72,10 @@ export default Controller.extend({
   actions: {
     changeRecurring() {
       const recurring = this.get("model.plan.isRecurring");
+      const recurringbefore = recurring
       this.set("model.plan.type", recurring ? ONE_TIME : RECURRING);
       this.set("model.plan.isRecurring", !recurring);
-      console.log(`isRecurring changed from ${recurringBefore} to ${recurringAfter}`);
+      console.log(`isRecurring changed from ${recurringbefore} to ${recurring}`);
     },
 
     createPlan() {

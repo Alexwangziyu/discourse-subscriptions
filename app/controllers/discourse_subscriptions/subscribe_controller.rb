@@ -75,6 +75,7 @@ module DiscourseSubscriptions
         end
 
         recurring_plan = plan[:type] == "recurring"
+        puts "recurring_plan: #{recurring_plan}"
 
         if recurring_plan
           trial_days = plan[:metadata][:trial_period_days] if plan[:metadata] &&
@@ -94,6 +95,7 @@ module DiscourseSubscriptions
           payment_intent = retrieve_payment_intent(transaction[:latest_invoice]) if transaction[
             :status
           ] == "incomplete"
+
         else
           # coupon_id = promo_code[:coupon][:id] if promo_code && promo_code[:coupon] &&
           #   promo_code[:coupon][:id]
@@ -113,7 +115,7 @@ module DiscourseSubscriptions
             plan[:metadata][:trial_period_days]
 
           promo_code_id = promo_code[:id] if promo_code
-
+          plan[:type] = "recurring"
           transaction =
             ::Stripe::Subscription.create(
               customer: customer[:id],
@@ -249,3 +251,5 @@ module DiscourseSubscriptions
     end
   end
 end
+
+
