@@ -19,6 +19,8 @@ module DiscourseSubscriptions
 
       def create
         begin
+          recurring = params[:type] == "recurring" ? 1 : 0
+
           price_object = {
             nickname: params[:nickname],
             unit_amount: params[:amount],
@@ -28,11 +30,11 @@ module DiscourseSubscriptions
             metadata: {
               group_name: params[:metadata][:group_name],
               trial_period_days: params[:trial_period_days],
+              recurring: recurring,
             },
           }
 
-          price_object[:recurring] = { interval: params[:interval] } if params[:type] == "recurring"
-          price_object[:recurring] = { interval: params[:interval] } if params[:type] != "recurring"
+          price_object[:recurring] = { interval: params[:interval] }
 
           plan = ::Stripe::Price.create(price_object)
 

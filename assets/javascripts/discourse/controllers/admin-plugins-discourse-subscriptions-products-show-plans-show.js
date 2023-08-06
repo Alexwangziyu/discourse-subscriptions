@@ -72,21 +72,21 @@ export default Controller.extend({
   actions: {
     changeRecurring() {
       const recurring = this.get("model.plan.isRecurring");
-      const recurringbefore = recurring
+      console.log(`isRecurring changed from ${recurring}`);
       this.set("model.plan.type", recurring ? ONE_TIME : RECURRING);
-      this.set("model.plan.isRecurring", !recurring);
-      console.log(`isRecurring changed from ${recurringbefore} to ${recurring}`);
+      this.set("model.plan.isRecurring", !recurring); 
+      console.log(`isRecurring changed to ${recurring}`);
     },
 
     createPlan() {
-      const isRecurringBefore = this.model.plan.isRecurring;
+      console.log(`isRecurring changed from ${this.model.plan.isRecurring}`)
       if (this.model.plan.metadata.group_name === "no-group") {
         this.set("model.plan.metadata.group_name", null);
       }
       this.get("model.plan")
         .save()
         .then(() => {const isRecurringAfter = this.model.plan.isRecurring; // 存储创建后的 isRecurring 值
-        console.log(`after saving isRecurring changed from ${isRecurringBefore} to ${isRecurringAfter}`);
+        console.log(`after saving isRecurring changed to ${isRecurringAfter}`);
         this.redirect(this.productId);
       })
         .catch(popupAjaxError);

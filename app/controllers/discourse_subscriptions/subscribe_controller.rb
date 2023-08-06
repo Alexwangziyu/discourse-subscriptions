@@ -74,7 +74,7 @@ module DiscourseSubscriptions
           end
         end
 
-        recurring_plan = plan[:type] == "recurring"
+        recurring_plan = plan.metadata[:recurring] == 1
         puts "recurring_plan: #{recurring_plan}"
 
         if recurring_plan
