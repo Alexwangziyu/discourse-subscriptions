@@ -74,15 +74,20 @@ export default Controller.extend({
       const recurring = this.get("model.plan.isRecurring");
       this.set("model.plan.type", recurring ? ONE_TIME : RECURRING);
       this.set("model.plan.isRecurring", !recurring);
+      console.log(`isRecurring changed from ${recurringBefore} to ${recurringAfter}`);
     },
 
     createPlan() {
+      const isRecurringBefore = this.model.plan.isRecurring;
       if (this.model.plan.metadata.group_name === "no-group") {
         this.set("model.plan.metadata.group_name", null);
       }
       this.get("model.plan")
         .save()
-        .then(() => this.redirect(this.productId))
+        .then(() => {const isRecurringAfter = this.model.plan.isRecurring; // 存储创建后的 isRecurring 值
+        console.log(`after saving isRecurring changed from ${isRecurringBefore} to ${isRecurringAfter}`);
+        this.redirect(this.productId);
+      })
         .catch(popupAjaxError);
     },
 
