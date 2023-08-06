@@ -20,7 +20,7 @@ module DiscourseSubscriptions
       def create
         begin
           recurring = params[:type] == "recurring" ? 1 : 0
-
+          puts "HashHashHashHashHashHashHashHash: #{params}"
           price_object = {
             nickname: params[:nickname],
             unit_amount: params[:amount],
@@ -34,9 +34,12 @@ module DiscourseSubscriptions
             },
           }
 
-          price_object[:recurring] = { interval: params[:interval] }
-
+          price_object[:recurring] = { interval: params[:interval] } 
+          # if params[:type] == "recurring"
+          # price_object[:recurring] = { interval: params[:interval] } if params[:type] != "recurring"
+          puts "price: #{price_object}"
           plan = ::Stripe::Price.create(price_object)
+          
 
           render_json_dump plan
         rescue ::Stripe::InvalidRequestError => e

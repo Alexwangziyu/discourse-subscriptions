@@ -56,6 +56,7 @@ module DiscourseSubscriptions
 
     def create
       params.require(%i[source plan])
+      puts "params: #{params}"
       begin
         customer =
           find_or_create_customer(
@@ -74,8 +75,10 @@ module DiscourseSubscriptions
           end
         end
 
-        recurring_plan = plan.metadata[:recurring] == 1
+        recurring_plan = plan[:metadata][:recurring] == 1
         puts "recurring_plan: #{recurring_plan}"
+        puts "recurring_plan: #{plan}"
+
 
         if recurring_plan
           trial_days = plan[:metadata][:trial_period_days] if plan[:metadata] &&
